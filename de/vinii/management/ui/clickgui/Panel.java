@@ -6,6 +6,7 @@ import java.util.HashMap;
 import de.vinii.management.module.Category;
 import de.vinii.management.module.Module;
 import de.vinii.management.module.ModuleManager;
+import de.vinii.management.ui.clickgui.components.Frame;
 import de.vinii.management.ui.clickgui.components.GuiButton;
 import de.vinii.management.ui.clickgui.components.GuiFrame;
 import de.vinii.management.ui.clickgui.listeners.ClickListener;

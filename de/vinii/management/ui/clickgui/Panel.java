@@ -55,12 +55,16 @@ public class Panel extends ClickGui {
 	public void initGui() {
 		int x = 25;
 		for (Category cat : Category.values()) {
-			//load frame positions
-			GuiFrame frame = new GuiFrame(cat.name(), x, 50, true);
+			GuiFrame frame;
+			// load frame positions
+			if (framePositions.containsKey(cat.name())) {
+				FramePosition curPos = framePositions.get(cat.name());
+				frame = new GuiFrame(cat.name(), curPos.getPosX(), curPos.getPosY(), curPos.isExpanded());
+			} else {
+				frame = new GuiFrame(cat.name(), x, 50, true);
+			}
 			for (Module m : ModuleManager.moduleList) {
-				if (cat == m.category && (m.shown || (m.getName().equalsIgnoreCase("HUD") && cat == Category.RENDER)
-						|| (m.getName().equalsIgnoreCase("Disabler") && cat == Category.MISC)
-						|| (m.getName().equalsIgnoreCase("ClickGui") && cat == Category.RENDER))) {
+				if (cat == m.category && (m.shown)) {
 					GuiButton button = new GuiButton(m.getName());
 					button.addClickListener(new ClickListener(button));
 					button.addExtendListener(new ComponentsListener(button));
@@ -74,8 +78,14 @@ public class Panel extends ClickGui {
 	}
 
 	public void onGuiClosed() {
-		//save positions to framePositions
-		
+		// save positions to framePositions
+		if (!getFrames().isEmpty()) {
+			for (Frame frame : getFrames()) {
+				GuiFrame guiFrame = ((GuiFrame) frame);
+				framePositions.put(guiFrame.getTitle(),
+						new FramePosition(guiFrame.getPosX(), guiFrame.getPosY(), guiFrame.isExpaned()));
+			}
+		}
 		ModuleManager.getModule(de.vinii.modules.render.ClickGui.class).onDisable();
 	}
 }

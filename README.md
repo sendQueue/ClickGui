@@ -2,7 +2,8 @@
 **Use is only authorized if given credit!**
 
 In order to display the gui use:
-*mc.displayGuiScreen(new Panel(themeModes.getSelectedCombo(), 22));*
+*mc.displayGuiScreen(new Panel("Caesium", 22));*
+- use "Caesium" as default theme!
 
 ## Important classes to modify:
 - ClickListener.java -> change module activation

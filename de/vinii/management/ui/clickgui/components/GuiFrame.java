@@ -181,5 +181,32 @@ public class GuiFrame implements Frame {
 	public int getButtonID() {
 		return id;
 	}
+		/**
+	 * @return isExpaned
+	 */
+	public boolean isExpaned() {
+		return isExpaned;
+	}
+
+	/**
+	 * @return the posX
+	 */
+	public int getPosX() {
+		return posX;
+	}
+
+	/**
+	 * @return the posY
+	 */
+	public int getPosY() {
+		return posY;
+	}
+
+	/**
+	 * @return the title
+	 */
+	public String getTitle() {
+		return title;
+	}
 
 }

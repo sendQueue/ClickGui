@@ -12,8 +12,25 @@ import net.minecraft.client.gui.Gui;
  */
 public final class RenderUtil {
 
+	/**
+	 * <h1>CAUTION:</h1> Your version might not support the default method.
+	 * <p>
+	 * If so, feel free to use the use the replacement method from <A href=
+	 * "https://github.com/sendQueue/LWJGLUtil">https://github.com/sendQueue/LWJGLUtil</A>.
+	 * 
+	 * 
+	 * @param left
+	 * @param top
+	 * @param right
+	 * @param bottom
+	 * @param color
+	 */
 	public static void drawRect(int left, int top, int right, int bottom, int color) {
+		// default
 		Gui.drawRect(left, top, right, bottom, color);
+
+		// replacement
+//		LWJGLUtil.drawRect(left, top, right - left, bottom - top, color);
 	}
 
 	public static void drawHorizontalLine(int startX, int endX, int y, int color) {

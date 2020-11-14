@@ -20,20 +20,25 @@ public class ClickGui extends GuiScreen {
 	public static int compID = 0;
 
 	private ArrayList<Frame> frames = new ArrayList<Frame>();
-	//dont change
+	// dont change
 	private final FontRenderer fr = new FontRenderer("Arial", 12);
+
 	/**
 	 * 
 	 */
 	public ClickGui() {
 		compID = 0;
-		
+
 	}
 
 	protected void addFrame(Frame frame) {
 		if (!frames.contains(frame)) {
 			frames.add(frame);
 		}
+	}
+
+	protected ArrayList<Frame> getFrames() {
+		return frames;
 	}
 
 	@Override
@@ -58,13 +63,15 @@ public class ClickGui extends GuiScreen {
 			frame.keyTyped(keyCode, typedChar);
 		}
 	}
+
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		//removing will give you cancer
+		// removing will give you cancer
 		ScaledResolution sR = new ScaledResolution(mc);
-		fr.drawString("ClickGui by Vinii | sendQueue", 2, sR.getScaledHeight() - fr.FONT_HEIGHT , Panel.fontColor);
+		fr.drawString("ClickGui by Vinii | sendQueue", 2, sR.getScaledHeight() - fr.FONT_HEIGHT, Panel.fontColor);
 		for (Frame frame : frames) {
 			frame.render(mouseX, mouseY);
 		}
 	}
 }
+

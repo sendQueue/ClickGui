@@ -11,7 +11,7 @@ In order to display the gui use:
 - Panel.java -> change for loops for your categorys and modules
 
 ## Previews
-- https://vinii.de/github/ClickGui/1.png
-- http://vinii.de/github/ClickGui/2.png
-- http://vinii.de/github/ClickGui/3.png
-- http://vinii.de/github/ClickGui/4.png
+- ![1](https://vinii.de/github/ClickGui/1.png)
+- ![2](http://vinii.de/github/ClickGui/2.png)
+- ![3](http://vinii.de/github/ClickGui/3.png)
+- ![4](http://vinii.de/github/ClickGui/4.png)

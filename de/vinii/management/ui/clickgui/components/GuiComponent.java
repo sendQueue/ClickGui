@@ -18,5 +18,7 @@ public interface GuiComponent {
 	int getWidth();
 
 	int getHeight();
+	
+	boolean allowScroll();
 
 }

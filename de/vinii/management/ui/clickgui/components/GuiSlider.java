@@ -26,7 +26,7 @@ public class GuiSlider implements GuiComponent {
 	private float min, max, current;
 	private double c;
 
-	private boolean wasSliding;
+	private boolean wasSliding, hovered;
 
 	private String text;
 
@@ -47,12 +47,22 @@ public class GuiSlider implements GuiComponent {
 	}
 
 	@Override
-	public void render(int posX, int posY, int width, int mouseX, int mouseY) {
+	public void render(int posX, int posY, int width, int mouseX, int mouseY, int wheelY) {
 		this.posX = posX;
 		this.posY = posY;
 		this.width = width;
-		boolean hovered = RenderUtil.isHovered(posX, posY, width, getHeight(), mouseX, mouseY);
-
+		hovered = RenderUtil.isHovered(posX, posY, width, getHeight(), mouseX, mouseY);
+		if (hovered && wheelY != 0) {
+			double diff = min < 0 ? Math.abs(min - max) : max - min;
+			double w = wheelY / 15;
+			// 100 => per scroll 1/100 of the diff is being added/subtracted
+			w *= diff / 100;
+			if (round == 0) {
+				current = (int) MathHelper.clamp_double(current + w, min, max);
+			} else {
+				current = (float) MathHelper.clamp_double(current + w, min, max);
+			}
+		}
 		if (Mouse.isButtonDown(0) && (dragId == id || dragId == -1) && hovered) {
 			if (mouseX < posX + 2) {
 				current = min;
@@ -128,6 +138,11 @@ public class GuiSlider implements GuiComponent {
 	@Override
 	public int getHeight() {
 		return Panel.fR.FONT_HEIGHT + 6;
+	}
+
+	@Override
+	public boolean allowScroll() {
+		return !hovered;
 	}
 
 }

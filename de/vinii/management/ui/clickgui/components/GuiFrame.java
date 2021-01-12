@@ -24,7 +24,7 @@ public class GuiFrame implements Frame {
 
 	private int id, posX, posY, prevPosX, prevPosY, scrollHeight;
 	public static int dragID;
-	
+
 	private String title;
 
 	/**
@@ -73,8 +73,8 @@ public class GuiFrame implements Frame {
 			width = Math.max(width, button.getWidth() + 15);
 		}
 		RenderUtil.drawRect(posX + 1, posY - 5, posX + width, posY + 12, color);
-		GL11Util.drawVerticalGradient(posX + 1, posY - 5, width - 1, 17, new Color(color).brighter().getRGB(),
-				new Color(color).darker().getRGB());
+		GL11Util.drawVerticalGradient(posX + 1, posY - 5, width - 1, 17,
+				GL11Util.brighter(new Color(color), 0.7f).getRGB(), GL11Util.darker(new Color(color), 0.7f).getRGB());
 		Panel.fR.drawStringWithShadow(title, (posX + (width / 2)) - Panel.fR.getStringWidth(title) / 2, posY,
 				fontColor);
 		Panel.fR.drawStringWithShadow(isExpaned ? "-" : "+",
@@ -83,16 +83,20 @@ public class GuiFrame implements Frame {
 			int height = 0;
 			final int background = Panel.grey40_240;
 			for (GuiButton button : buttons) {
-				button.render(posX + 1, posY + height + 12, width, mouseX, mouseY);
+				button.render(posX + 1, posY + height + 12, width, mouseX, mouseY, 0);
 				// check if -1
 				if (button.getButtonID() == GuiButton.expandedID) {
 					ArrayList<GuiComponent> components = button.getComponents();
 					if (!components.isEmpty()) {
 						int xOffset = 10;
 						int yOffset = 0;
+						boolean allowScroll = true;
 						for (GuiComponent component : components) {
 							xOffset = Math.max(xOffset, component.getWidth());
 							yOffset += component.getHeight();
+							if (!component.allowScroll()) {
+								allowScroll = false;
+							}
 						}
 						final int left = posX + width + 2;
 						final int right = left + xOffset;
@@ -104,12 +108,14 @@ public class GuiFrame implements Frame {
 							wheelY *= -1;
 							scrollHeight += 10;
 						}
-						scrollHeight += wheelY;
+						if (allowScroll)
+							scrollHeight += wheelY;
+						
 						RenderUtil.drawRect(left + 1, top + 1 + scrollHeight, right, bottom + scrollHeight,
 								Panel.black100);
 						int height2 = 0;
 						for (GuiComponent component : components) {
-							component.render(left, top + height2 + 2 + scrollHeight, xOffset, mouseX, mouseY);
+							component.render(left, top + height2 + 2 + scrollHeight, xOffset, mouseX, mouseY, wheelY);
 							height2 += component.getHeight();
 						}
 						RenderUtil.drawVerticalLine(left, top + scrollHeight, bottom + scrollHeight, color);
@@ -120,7 +126,10 @@ public class GuiFrame implements Frame {
 				}
 				height += button.getHeight();
 			}
-			RenderUtil.drawHorizontalLine(posX + 1, posX + width - 1, posY + height + 12, color);
+//			RenderUtil.drawHorizontalLine(posX + 1, posX + width - 1, posY + height + 12, color);
+			GL11Util.drawVerticalGradient(posX + 1, posY + height + 12, width - 1, 1,
+					GL11Util.darker(new Color(color), 0.7f).getRGB(),
+					GL11Util.brighter(new Color(color), 0.7f).getRGB());
 
 			RenderUtil.drawVerticalLine(posX + width, posY - 5, posY + height + 14, Panel.black100);
 			RenderUtil.drawVerticalLine(posX + width, posY - 4, posY + height + 14, Panel.black100);
@@ -181,7 +190,8 @@ public class GuiFrame implements Frame {
 	public int getButtonID() {
 		return id;
 	}
-		/**
+
+	/**
 	 * @return isExpaned
 	 */
 	public boolean isExpaned() {

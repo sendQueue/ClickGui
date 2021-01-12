@@ -36,7 +36,7 @@ public class GuiGetKey implements GuiComponent {
 	}
 
 	@Override
-	public void render(int posX, int posY, int width, int mouseX, int mouseY) {
+	public void render(int posX, int posY, int width, int mouseX, int mouseY, int wheelY) {
 		this.posX = posX;
 		this.posY = posY;
 		this.width = width;
@@ -56,8 +56,7 @@ public class GuiGetKey implements GuiComponent {
 		}else {
 			wasChanged = true;
 		}
-		GL11Util.drawVerticalGradient(posX, posY, width, 14, new Color(Panel.color).darker().getRGB(),
-				new Color(Panel.color).brighter().getRGB());
+		GL11Util.drawVerticalGradient(posX, posY, width, 14, GL11Util.darker(new Color(Panel.color), 0.7f).getRGB(), GL11Util.brighter(new Color(Panel.color), 0.7f).getRGB());
 		Panel.fR.drawStringWithShadow(text + ":", posX + 3, posY + 3, Panel.fontColor);
 		if (wasChanged) {
 			Panel.fR.drawStringWithShadow(keyString, posX + width - Panel.fR.getStringWidth(keyString) - 3, posY + 3,
@@ -101,5 +100,11 @@ public class GuiGetKey implements GuiComponent {
 	public int getHeight() {
 		return Panel.fR.FONT_HEIGHT + 4;
 	}
+	
+	@Override
+		public boolean allowScroll() {
+			// TODO Auto-generated method stub
+			return true;
+		}
 
 }

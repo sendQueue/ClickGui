@@ -17,7 +17,7 @@ public class GuiLabel implements GuiComponent {
 	}
 
 	@Override
-	public void render(int posX, int posY, int width, int mouseX, int mouseY) {
+	public void render(int posX, int posY, int width, int mouseX, int mouseY, int wheelY) {
 		Panel.fR.drawStringWithShadow(text, posX + width / 2 - Panel.fR.getStringWidth(text) / 2, posY + 2,
 				Panel.fontColor);
 	}
@@ -39,5 +39,10 @@ public class GuiLabel implements GuiComponent {
 	public int getHeight() {
 		return Panel.fR.FONT_HEIGHT + 2;
 	}
+	
+	@Override
+	public boolean allowScroll() {
+			return true;
+		}
 
 }

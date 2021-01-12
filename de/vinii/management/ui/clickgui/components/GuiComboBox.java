@@ -35,7 +35,7 @@ public class GuiComboBox implements GuiComponent {
 	}
 
 	@Override
-	public void render(int posX, int posY, int width, int mouseX, int mouseY) {
+	public void render(int posX, int posY, int width, int mouseX, int mouseY, int wheelY) {
 		this.posX = posX;
 		this.posY = posY;
 		this.width = width;
@@ -114,6 +114,11 @@ public class GuiComboBox implements GuiComponent {
 	@Override
 	public int getHeight() {
 		return height;
+	}
+	
+	@Override
+	public boolean allowScroll() {
+		return true;
 	}
 
 	/**

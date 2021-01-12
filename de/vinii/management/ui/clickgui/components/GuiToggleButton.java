@@ -33,7 +33,7 @@ public class GuiToggleButton implements GuiComponent {
 	}
 
 	@Override
-	public void render(int posX, int posY, int width, int mouseX, int mouseY) {
+	public void render(int posX, int posY, int width, int mouseX, int mouseY, int wheelY) {
 		this.posX = posX;
 		this.posY = posY;
 		
@@ -83,7 +83,10 @@ public class GuiToggleButton implements GuiComponent {
 	public int getHeight() {
 		return Panel.fR.FONT_HEIGHT + 5;
 	}
-
+	@Override
+	public boolean allowScroll() {
+		return true;
+	}
 
 	public boolean isToggled() {
 		return toggled;

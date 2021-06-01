@@ -9,7 +9,7 @@ package de.vinii.management.ui.clickgui.components;
  */
 public interface GuiComponent {
 
-	void render(int posX, int posY, int width, int mouseX, int mouseY);
+	void render(int posX, int posY, int width, int mouseX, int mouseY, int wheelY);
 
 	void mouseClicked(int mouseX, int mouseY, int mouseButton);
 
